@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.edu.repository.MemberRepository">
+  <select id="selectMemberAll" resultType="memberdto">
+  	select id, pw, name, age from members 
+  </select>
+  <insert id="insertMember" parameterType="memberdto">
+ 	insert into members(id,pw,name,age) 
+ 	values(#{id},#{pw},#{name},#{age})
+  </insert>
+  <update id="updateMember" parameterType="memberdto">
+  	update members set 
+  		pw = #{pw},
+  		name=#{name},
+  		age=#{age} 
+  	where id = #{id};
+  </update>
+  <delete id="deleteMember" parameterType="string">
+  	delete from members 
+  	where id = #{id}
+  
+  </delete>
+  <select id="selectMember" parameterType="string" resultType="memberdto">
+  	select id, pw, name, age 
+  	from members 
+  	where id = #{id}
+  </select>
+  <select id="login" parameterType="map" resultType="memberdto">
+  	select id, pw, name, age 
+  	from members 
+  	where id = #{id} and pw = #{pw}
+  </select>
+  <select id="test1" parameterType="map" resultType="memberdto">
+  		select id, pw, name, age 
+  			from members
+  		where ${col} = #{data}	
+  </select>
+</mapper>

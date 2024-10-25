@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.edu.repository">
+
+	<!-- 회원 목록 전체 조회 -->
+	<select id="selectAllMembers" resultType="memberdto">
+		select id, pw, name,
+		age from members
+	</select>
+
+	<!-- 회원 등록 -->
+	<insert id="insertMember" parameterType="memberdto">
+		insert into members(id,
+		pw, name, age)
+		values(#{id}, #{pw}, #{name}, #{age})
+	</insert>
+
+	<update id="updateMember" parameterType="memberdto">
+		update members set pw = #{pw},name=#{name},age=#{age} where id = #{id}
+	</update>
+	<delete id="deleteMember" parameterType="string">
+		delete from members where id = #{id}
+	</delete>
+
+	<!-- 특정 회원 조회 (ID 기준) -->
+	<select id="selectMemberById" parameterType="string"
+		resultType="memberdto">
+		select id, pw, name, age from members where id = #{id}
+	</select>
+
+	<!-- 로그인 기능 -->
+	<select id="login" parameterType="map" resultType="memberdto">
+		select id, pw,
+		name, age from members
+		where id = #{id} and pw = #{pw}
+	</select>
+		
+</mapper>
